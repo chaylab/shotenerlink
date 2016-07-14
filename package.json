@@ -1,0 +1,26 @@
+{
+  "name": "shotenerlink",
+  "version": "1.0.0",
+  "description": "job interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaylab/shotenerlink.git"
+  },
+  "author": "CHAYP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaylab/shotenerlink/issues"
+  },
+  "homepage": "https://github.com/chaylab/shotenerlink#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.4",
+    "morgan": "^1.7.0",
+    "passport-facebook": "^2.1.1"
+  }
+}
