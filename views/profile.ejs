@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+	<title>Massage Massage Massage</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+<body>
+	<div class="container">
+<div class="page-header text-center">
+		<h1>Massage Massage Massage</h1>
+		<h2><%= user.name %></h2>
+		<a href="/logout" class="btn btn-default btn-sm">Logout</a>
+</div>
+<form action="/add" method="post">
+	<div class="form-group">
+		<input type="text" class="form-control" name="text">
+	</div>
+	<button type="submit" class="btn btn-sm">New Massage</button>
+	</form>
+		<% msgs.reverse().forEach(function(msg){ %>
+			<a href="/<%= msg.tag %>">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="well">
+								<p>
+									<%= msg.text.slice(0,50)+' ...' %><br>
+									<strong>tag</strong>: <%= msg.tag %>
+								</p>
+						</div>
+					</div>
+				</div>
+		</a>
+		<% }); %>
+
+
+	</div>
+</body>
+</html>
