@@ -48,6 +48,7 @@ app.get('/',isLogin,function(req,res) {
 
 function isAuthen(req,res,next) {
   if(req.isAuthenticated()) return next();
+  console.log('not authen');
   res.redirect('/');
 }
 app.get('/profile',isAuthen,function(req,res) {
@@ -90,8 +91,8 @@ app.post('/edit',isAuthen,function(req,res) {
       if(err) showErr(req,res,err);
       else res.redirect('/'+req.body.ntag);
   });
-
 });
+
 app.post('/add',isAuthen,function(req,res) {
   console.log('send',req.body.text);
   console.log('user',req.user.id);
