@@ -21,8 +21,8 @@ exports.addTest=function() {
 
 exports.getMassageByTag=function(tag,fn) {
   Massage.findOne({'tag':tag},function(err,msg) {
-    if(err) throw err;
-    fn(msg);
+    if(err) return fn(err);
+    fn(null,msg);
   });
 };
 
