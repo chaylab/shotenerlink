@@ -87,8 +87,7 @@ app.post('/edit',isAuthen,function(req,res) {
     req.body.ntext,
     req.user.id,
     function(err) {
-      console.log(err);
-      if(err) res.redirect('/fail');
+      if(err) showErr(req,res,err);
       else res.redirect('/'+req.body.ntag);
   });
 
@@ -97,8 +96,8 @@ app.post('/add',isAuthen,function(req,res) {
   console.log('send',req.body.text);
   console.log('user',req.user.id);
   db.addMassage(req.body.text,req.user.id,function(err) {
-    if(err) res.redirect('/fail');
-    res.redirect('/profile');
+    if(err) showErr(req,res,err);
+    else res.redirect('/profile');
   });
 });
 
