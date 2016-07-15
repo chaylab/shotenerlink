@@ -29,6 +29,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+function showErr(req,res,err) {
+  res.render('fail.ejs',{'err':err});
+}
+
 
 //db.addTest();
 function isLogin(req,res,next) {
@@ -47,7 +51,8 @@ function isAuthen(req,res,next) {
   res.redirect('/');
 }
 app.get('/profile',isAuthen,function(req,res) {
-  db.getMassageByOwner(req.user.id,function(msgs) {
+  db.getMassageByOwner(req.user.id,function(err,msgs) {
+    if(err) showErr(req,res,err);
     res.render('profile.ejs',{
       user:req.user,
       'msgs':msgs
@@ -100,7 +105,7 @@ app.post('/add',isAuthen,function(req,res) {
 app.get('/*',function(req,res) {
   console.log(req.path);
   db.getMassageByTag(req.path.slice(1),function(err,msg) {
-    if(err) res.render('fail.ejs',{'err':err});
+    if(err) showErr(req,res,err);
     if(msg) {
       pwn=false;
       if(req.user&&req.user.id==msg.owner) pwn=true;
@@ -109,7 +114,7 @@ app.get('/*',function(req,res) {
         'msg':msg,
         'pwn':pwn
       });
-    } else res.render('fail.ejs',{'err':'massage not found'});
+    } else showErr(req,res,'Massage not found!!');
   });
 });
 
