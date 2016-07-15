@@ -99,7 +99,8 @@ app.post('/add',isAuthen,function(req,res) {
 
 app.get('/*',function(req,res) {
   console.log(req.path);
-  db.getMassageByTag(req.path.slice(1),function(msg) {
+  db.getMassageByTag(req.path.slice(1),function(err,msg) {
+    if(err) res.render('fail.ejs',{'err':err});
     if(msg) {
       pwn=false;
       if(req.user&&req.user.id==msg.owner) pwn=true;
@@ -108,7 +109,7 @@ app.get('/*',function(req,res) {
         'msg':msg,
         'pwn':pwn
       });
-  } else res.redirect('/fail');
+    } else res.render('fail.ejs',{'err':'massage not found'});
   });
 });
 
