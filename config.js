@@ -4,11 +4,11 @@ exports.database='mongodb://localhost:27017/test';
 
 exports.passport=function(passport) {
   passport.serializeUser(function(user, done) {
-    console.log("!!!!",user.id);
+    console.log("serialize",user.id);
       done(null, user.id);
   });
   passport.deserializeUser(function(id, done) {
-    console.log("????",id);
+    console.log("deserialize",id);
     User.findOne({'id':id}, function(err, user) {
             done(err, user);
         });
