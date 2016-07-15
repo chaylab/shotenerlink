@@ -28,8 +28,8 @@ exports.getMassageByTag=function(tag,fn) {
 
 exports.getMassageByOwner=function(owner,fn) {
   Massage.find({'owner':owner},function(err,msg) {
-    if(err) throw err;
-    fn(msg);
+    if(err) fn(err);
+    fn(null,msg);
   });
 };
 
