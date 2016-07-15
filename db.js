@@ -45,14 +45,14 @@ exports.setMassage=function(tag,ntag,ntext,owner,fn) {
   if(!isValidTag(ntag)) return fn('invalid tag');
   update={'text':ntext};
   if(tag==ntag) Massage.update({'tag':tag,'owner':owner},update,function(err) {
-    if(err) throw err;
+    if(err) return fn(err);
     fn(null);
   }); else Massage.findOne({'tag':ntag},function(err,msg) {
-    if(err) throw err;
+    if(err) return fn(err);
     if(msg) return fn('duplicate tag');
     update={'tag':ntag,'text':ntext};
     Massage.update({'tag':tag,'owner':owner},update,function(err) {
-      if(err) throw err;
+      if(err) return fn(err);
       fn(null);
     });
   });
@@ -65,7 +65,7 @@ function genTag() {
   tag='';
   len=6;
   for(i=0;i<len;i++) {
-    rnd=rndRange(36);
+    rnd=rndRange(36); //a-z0-9
     if(rnd>10) { base=96; rnd-=10;} else base=47;
     tag+=String.fromCharCode(base+rnd);
   }
@@ -76,14 +76,14 @@ exports.addMassage=function(text,owner,fn) {
   if(!text) fn('no text');
   tag=genTag();
   Massage.findOne({'tag':tag},function(err,msg) {
-    if(err) throw err;
+    if(err) return fn(err);
     if(msg) return fn('duplicate tag');
       newMsg=new Massage;
       newMsg.tag=tag;
       newMsg.text=text;
       newMsg.owner=owner;
       newMsg.save(function(err) {
-        if(err) throw err;
+        if(err) return fn(err);
         fn(null);
       });
   });
